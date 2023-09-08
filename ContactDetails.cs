@@ -13,6 +13,7 @@ namespace Agenda;
 public partial class ContactDetails : Form
 {
     private BusinessLogicLayer _businessLogicLayer;
+    private Contact _contact;
     public ContactDetails()
     {
         InitializeComponent();
@@ -39,6 +40,30 @@ public partial class ContactDetails : Form
         contact.Phone = txtPhone.Text;
         contact.Address = txtAddress.Text;
 
+        contact.Id = _contact is not null ? _contact.Id : 0;
+
         _businessLogicLayer.SaveContact(contact);
+    }
+
+    public void LoadContact(Contact contact)
+    {
+        _contact = contact;
+        if(contact is not null)
+        {
+            ClearForms();
+
+            txtFirstName.Text = contact.FirstName;
+            txtLastName.Text = contact.LastName;
+            txtPhone.Text = contact.Phone;
+            txtAddress.Text = contact.Address;
+        }
+    }
+
+    private void ClearForms()
+    {
+        txtFirstName.Text = string.Empty;
+        txtLastName.Text = string.Empty;
+        txtPhone.Text = string.Empty;
+        txtAddress.Text= string.Empty;
     }
 }

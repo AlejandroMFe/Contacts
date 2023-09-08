@@ -26,4 +26,9 @@ public class BusinessLogicLayer
     }
 
     public List<Contact> GetContacts() => _data.GetAllContacts();
+    
+    public void DeleteContact(int id)
+    {
+        _data.DeleteContact(id);
+    }
 }

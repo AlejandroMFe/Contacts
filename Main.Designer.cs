@@ -30,16 +30,18 @@ partial class Main
     {
         components = new System.ComponentModel.Container();
         gridContacts = new DataGridView();
+        contactBindingSource = new BindingSource(components);
         labelSearch = new Label();
         txtSearch = new TextBox();
         btnSearch = new Button();
         btnAdd = new Button();
-        contactBindingSource = new BindingSource(components);
         idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         firstNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         lastNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         phoneDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         addressDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+        Edit = new DataGridViewLinkColumn();
+        Delete = new DataGridViewLinkColumn();
         ((System.ComponentModel.ISupportInitialize)gridContacts).BeginInit();
         ((System.ComponentModel.ISupportInitialize)contactBindingSource).BeginInit();
         SuspendLayout();
@@ -48,13 +50,18 @@ partial class Main
         // 
         gridContacts.AutoGenerateColumns = false;
         gridContacts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        gridContacts.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, firstNameDataGridViewTextBoxColumn, lastNameDataGridViewTextBoxColumn, phoneDataGridViewTextBoxColumn, addressDataGridViewTextBoxColumn });
+        gridContacts.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, firstNameDataGridViewTextBoxColumn, lastNameDataGridViewTextBoxColumn, phoneDataGridViewTextBoxColumn, addressDataGridViewTextBoxColumn, Edit, Delete });
         gridContacts.DataSource = contactBindingSource;
         gridContacts.Location = new Point(12, 73);
         gridContacts.Name = "gridContacts";
         gridContacts.RowTemplate.Height = 25;
         gridContacts.Size = new Size(776, 349);
         gridContacts.TabIndex = 0;
+        gridContacts.CellContentClick += gridContacts_CellContentClick;
+        // 
+        // contactBindingSource
+        // 
+        contactBindingSource.DataSource = typeof(Contact);
         // 
         // labelSearch
         // 
@@ -95,10 +102,6 @@ partial class Main
         btnAdd.UseVisualStyleBackColor = true;
         btnAdd.Click += btnAdd_Click;
         // 
-        // contactBindingSource
-        // 
-        contactBindingSource.DataSource = typeof(Contact);
-        // 
         // idDataGridViewTextBoxColumn
         // 
         idDataGridViewTextBoxColumn.DataPropertyName = "Id";
@@ -129,6 +132,22 @@ partial class Main
         addressDataGridViewTextBoxColumn.HeaderText = "Address";
         addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
         // 
+        // Edit
+        // 
+        Edit.HeaderText = "Edit";
+        Edit.Name = "Edit";
+        Edit.ReadOnly = true;
+        Edit.Text = "Edit";
+        Edit.UseColumnTextForLinkValue = true;
+        // 
+        // Delete
+        // 
+        Delete.HeaderText = "Delete";
+        Delete.Name = "Delete";
+        Delete.ReadOnly = true;
+        Delete.Text = "Delete";
+        Delete.UseColumnTextForLinkValue = true;
+        // 
         // Main
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -156,10 +175,12 @@ partial class Main
     private TextBox txtSearch;
     private Button btnSearch;
     private Button btnAdd;
+    private BindingSource contactBindingSource;
     private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn phoneDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
-    private BindingSource contactBindingSource;
+    private DataGridViewLinkColumn Edit;
+    private DataGridViewLinkColumn Delete;
 }
