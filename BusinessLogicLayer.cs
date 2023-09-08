@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Agenda;
+﻿namespace Agenda;
 public class BusinessLogicLayer
 {
     private DataAccessLayer _data;
@@ -25,8 +19,8 @@ public class BusinessLogicLayer
         return contact;
     }
 
-    public List<Contact> GetContacts() => _data.GetAllContacts();
-    
+    public List<Contact> GetContacts(string? searchText) => _data.GetContacts(searchText);
+
     public void DeleteContact(int id)
     {
         _data.DeleteContact(id);

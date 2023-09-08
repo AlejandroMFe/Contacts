@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Data.SqlClient;
 
 namespace Agenda;
 
@@ -14,7 +7,7 @@ namespace Agenda;
 //      Como ejecutar las consultas
 public class DataAccessLayer
 {
-    private SqlConnection _connection = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=ATP\\afernandez;Initial Catalog=Contacts;Data Source=DESARROLLO05\\SQLEXPRESS");
+    private SqlConnection _connection = new("Integrated Security=SSPI;Persist Security Info=False;User ID=ATP\\afernandez;Initial Catalog=Contacts;Data Source=DESARROLLO05\\SQLEXPRESS");
     //private SqlConnection _connection = new SqlConnection("Integrated Security = SSPI; Persist Security Info=False;Initial Catalog = Contacts; Data Source = Silver\\SQLEXPRESS");
 
     public void CreateContact(Contact contact)
@@ -22,19 +15,19 @@ public class DataAccessLayer
         try
         {
             _connection.Open();
-            string query = @"
+            var query = @"
                                 INSERT INTO Contacts(FirstName, LastName, Phone, Address) 
                                 VALUES  (@FirstName,@LastName,@Phone,@Address)";
-            SqlParameter firstName = new SqlParameter();
+            var firstName = new SqlParameter();
             firstName.ParameterName = "@FirstName";
             firstName.Value = contact.FirstName;
             firstName.DbType = System.Data.DbType.String;
 
-            SqlParameter lastName = new SqlParameter("@LastName", contact.LastName);
-            SqlParameter phone = new SqlParameter("@Phone", contact.Phone);
-            SqlParameter address = new SqlParameter("@Address", contact.Address);
+            var lastName = new SqlParameter("@LastName", contact.LastName);
+            var phone = new SqlParameter("@Phone", contact.Phone);
+            var address = new SqlParameter("@Address", contact.Address);
 
-            SqlCommand command = new SqlCommand(query, _connection);
+            var command = new SqlCommand(query, _connection);
 
             command.Parameters.Add(firstName);
             command.Parameters.Add(lastName);
@@ -49,18 +42,29 @@ public class DataAccessLayer
         finally { _connection.Close(); }
     }
 
-    public List<Contact> GetAllContacts()
+    public List<Contact> GetContacts(string? searchText = null)
     {
         var contacts = new List<Contact>();
         try
         {
             _connection.Open();
-            string query = @"select Id, FirstName, LastName, Phone, Address
-                             from Contacts";
 
-            SqlCommand command = new SqlCommand(query, _connection);
+            var query = @"select Id, FirstName, LastName, Phone, Address
+                          from Contacts ";
 
-            SqlDataReader reader = command.ExecuteReader();
+            var command = new SqlCommand();
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                // with filter
+                query += @" WHERE FirstName LIKE @searchText  OR LastName LIKE @searchText OR  Address LIKE @searchText";
+                command.Parameters.Add(new SqlParameter("@searchText", $"%{searchText}%"));
+            }
+
+            command.CommandText = query;
+            command.Connection = _connection;
+
+            var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -90,20 +94,20 @@ public class DataAccessLayer
         try
         {
             _connection.Open();
-            string query = @"update Contacts
+            var query = @"update Contacts
                                  set FirstName = @FirstName,    
                                      LastName = @LastName,
                                      Phone = @Phone,
                                      Address = @Address
                             where Id = @Id";
 
-            SqlParameter id = new SqlParameter("@Id", contact.Id);
-            SqlParameter firstName = new SqlParameter("@FirstName", contact.FirstName);
-            SqlParameter lastName = new SqlParameter("@LastName", contact.LastName);
-            SqlParameter phone = new SqlParameter("@Phone", contact.Phone);
-            SqlParameter address = new SqlParameter("@Address", contact.Address);
+            var id = new SqlParameter("@Id", contact.Id);
+            var firstName = new SqlParameter("@FirstName", contact.FirstName);
+            var lastName = new SqlParameter("@LastName", contact.LastName);
+            var phone = new SqlParameter("@Phone", contact.Phone);
+            var address = new SqlParameter("@Address", contact.Address);
 
-            SqlCommand command = new SqlCommand(query, _connection);
+            var command = new SqlCommand(query, _connection);
             command.Parameters.Add(id);
             command.Parameters.Add(firstName);
             command.Parameters.Add(lastName);
@@ -131,10 +135,10 @@ public class DataAccessLayer
             _connection.Open();
 
             // 2° Create the query
-            string query = @"delete from Contacts where Id = @Id";
+            var query = @"delete from Contacts where Id = @Id";
 
             // 3° Pass the parameters to the query
-            SqlCommand command = new SqlCommand(query, _connection);
+            var command = new SqlCommand(query, _connection);
             command.Parameters.Add(new SqlParameter("@Id", id));
 
             // 4° Excecute the query

@@ -30,11 +30,6 @@ partial class Main
     {
         components = new System.ComponentModel.Container();
         gridContacts = new DataGridView();
-        contactBindingSource = new BindingSource(components);
-        labelSearch = new Label();
-        txtSearch = new TextBox();
-        btnSearch = new Button();
-        btnAdd = new Button();
         idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         firstNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         lastNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -42,6 +37,11 @@ partial class Main
         addressDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         Edit = new DataGridViewLinkColumn();
         Delete = new DataGridViewLinkColumn();
+        contactBindingSource = new BindingSource(components);
+        labelSearch = new Label();
+        txtSearch = new TextBox();
+        btnSearch = new Button();
+        btnAdd = new Button();
         ((System.ComponentModel.ISupportInitialize)gridContacts).BeginInit();
         ((System.ComponentModel.ISupportInitialize)contactBindingSource).BeginInit();
         SuspendLayout();
@@ -58,49 +58,6 @@ partial class Main
         gridContacts.Size = new Size(776, 349);
         gridContacts.TabIndex = 0;
         gridContacts.CellContentClick += gridContacts_CellContentClick;
-        // 
-        // contactBindingSource
-        // 
-        contactBindingSource.DataSource = typeof(Contact);
-        // 
-        // labelSearch
-        // 
-        labelSearch.AutoSize = true;
-        labelSearch.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-        labelSearch.Location = new Point(14, 28);
-        labelSearch.Name = "labelSearch";
-        labelSearch.Size = new Size(70, 24);
-        labelSearch.TabIndex = 1;
-        labelSearch.Text = "Search";
-        // 
-        // txtSearch
-        // 
-        txtSearch.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-        txtSearch.Location = new Point(90, 25);
-        txtSearch.Name = "txtSearch";
-        txtSearch.Size = new Size(505, 29);
-        txtSearch.TabIndex = 2;
-        // 
-        // btnSearch
-        // 
-        btnSearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-        btnSearch.Location = new Point(601, 25);
-        btnSearch.Name = "btnSearch";
-        btnSearch.Size = new Size(111, 29);
-        btnSearch.TabIndex = 3;
-        btnSearch.Text = "Search";
-        btnSearch.UseVisualStyleBackColor = true;
-        // 
-        // btnAdd
-        // 
-        btnAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-        btnAdd.Location = new Point(718, 25);
-        btnAdd.Name = "btnAdd";
-        btnAdd.Size = new Size(72, 29);
-        btnAdd.TabIndex = 4;
-        btnAdd.Text = "Add";
-        btnAdd.UseVisualStyleBackColor = true;
-        btnAdd.Click += btnAdd_Click;
         // 
         // idDataGridViewTextBoxColumn
         // 
@@ -147,6 +104,50 @@ partial class Main
         Delete.ReadOnly = true;
         Delete.Text = "Delete";
         Delete.UseColumnTextForLinkValue = true;
+        // 
+        // contactBindingSource
+        // 
+        contactBindingSource.DataSource = typeof(Contact);
+        // 
+        // labelSearch
+        // 
+        labelSearch.AutoSize = true;
+        labelSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+        labelSearch.Location = new Point(14, 28);
+        labelSearch.Name = "labelSearch";
+        labelSearch.Size = new Size(70, 24);
+        labelSearch.TabIndex = 1;
+        labelSearch.Text = "Search";
+        // 
+        // txtSearch
+        // 
+        txtSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+        txtSearch.Location = new Point(90, 25);
+        txtSearch.Name = "txtSearch";
+        txtSearch.Size = new Size(505, 29);
+        txtSearch.TabIndex = 2;
+        // 
+        // btnSearch
+        // 
+        btnSearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        btnSearch.Location = new Point(601, 25);
+        btnSearch.Name = "btnSearch";
+        btnSearch.Size = new Size(111, 29);
+        btnSearch.TabIndex = 3;
+        btnSearch.Text = "Search";
+        btnSearch.UseVisualStyleBackColor = true;
+        btnSearch.Click += btnSearch_Click;
+        // 
+        // btnAdd
+        // 
+        btnAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        btnAdd.Location = new Point(718, 25);
+        btnAdd.Name = "btnAdd";
+        btnAdd.Size = new Size(72, 29);
+        btnAdd.TabIndex = 4;
+        btnAdd.Text = "Add";
+        btnAdd.UseVisualStyleBackColor = true;
+        btnAdd.Click += btnAdd_Click;
         // 
         // Main
         // 

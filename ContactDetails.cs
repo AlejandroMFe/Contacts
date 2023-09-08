@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-
-namespace Agenda;
+﻿namespace Agenda;
 public partial class ContactDetails : Form
 {
     private BusinessLogicLayer _businessLogicLayer;
@@ -20,6 +9,7 @@ public partial class ContactDetails : Form
         _businessLogicLayer = new BusinessLogicLayer();
     }
 
+    #region Events
     private void btnCancel_Click(object sender, EventArgs e)
     {
         Close();
@@ -31,7 +21,9 @@ public partial class ContactDetails : Form
         Close();
         ((Main)Owner).PopulateContacts();
     }
+    #endregion
 
+    #region Private Methods
     private void SaveContact()
     {
         var contact = new Contact();
@@ -48,7 +40,7 @@ public partial class ContactDetails : Form
     public void LoadContact(Contact contact)
     {
         _contact = contact;
-        if(contact is not null)
+        if (contact is not null)
         {
             ClearForms();
 
@@ -64,6 +56,7 @@ public partial class ContactDetails : Form
         txtFirstName.Text = string.Empty;
         txtLastName.Text = string.Empty;
         txtPhone.Text = string.Empty;
-        txtAddress.Text= string.Empty;
+        txtAddress.Text = string.Empty;
     }
+    #endregion
 }
