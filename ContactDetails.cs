@@ -21,12 +21,14 @@ public partial class ContactDetails : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
-        this.Close();
+        Close();
     }
 
     private void btnSave_Click(object sender, EventArgs e)
     {
         SaveContact();
+        Close();
+        ((Main)Owner).PopulateContacts();
     }
 
     private void SaveContact()

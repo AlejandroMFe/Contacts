@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace Agenda;
 
 // Responsabilidad
@@ -12,7 +14,8 @@ namespace Agenda;
 //      Como ejecutar las consultas
 public class DataAccessLayer
 {
-    private SqlConnection _connection = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=ATP\\afernandez;Initial Catalog=Contacts;Data Source=DESARROLLO05\\SQLEXPRESS");
+    // private SqlConnection _connection = new SqlConnection("Integrated Security=SSPI;Persist Security Info=False;User ID=ATP\\afernandez;Initial Catalog=Contacts;Data Source=DESARROLLO05\\SQLEXPRESS");
+    private SqlConnection _connection = new SqlConnection("Integrated Security = SSPI; Persist Security Info=False;Initial Catalog = Contacts; Data Source = Silver\\SQLEXPRESS");
 
     public void CreateContact(Contact contact)
     {
@@ -57,7 +60,7 @@ public class DataAccessLayer
 
             SqlCommand command = new SqlCommand(query, _connection);
 
-            SqlDataReader reader = command.ExecuteReader(); 
+            SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -73,9 +76,13 @@ public class DataAccessLayer
         }
         catch (Exception)
         {
-
             throw;
         }
+        finally
+        {
+            _connection.Close();
+        }
+        return contacts;
     }
 
     internal void UpdateContact(Contact contact) => throw new NotImplementedException();

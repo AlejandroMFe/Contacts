@@ -25,8 +25,5 @@ public class BusinessLogicLayer
         return contact;
     }
 
-    internal object GetContacts()
-    {
-        _data.GetAllContacts();
-    }
+    public List<Contact> GetContacts() => _data.GetAllContacts();
 }

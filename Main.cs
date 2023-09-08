@@ -20,17 +20,18 @@ public partial class Main : Form
     private void OpenContactDetailsDialog()
     {
         var contactDetails = new ContactDetails();
-        contactDetails.ShowDialog();
+        contactDetails.ShowDialog(this);
     }
     #endregion
 
     private void Main_Load(object sender, EventArgs e)
     {
-        PopulateContacts();
+       PopulateContacts();
     }
 
-    private void PopulateContacts()
+    public void PopulateContacts()
     {
         var contacts = _business.GetContacts();
+        gridContacts.DataSource = contacts;
     }
 }
